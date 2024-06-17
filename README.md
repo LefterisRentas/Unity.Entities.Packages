@@ -12,5 +12,6 @@ Key Features
 - Item Management: Tools for creating, configuring, and interacting with game items.
 - Initialization Framework: Robust systems for entity initialization within the Unity ECS framework.
 - Extensive Documentation: Each package includes detailed documentation to help developers get started quickly and understand the provided functionality.
-Whether you are building a small indie game or a large-scale simulation, this repository offers the tools and systems needed to leverage the power of Unity Entities and ECS effectively.
+</br>
+<strong>Whether you are building a small indie game or a large-scale simulation, this repository offers the tools and systems needed to leverage the power of Unity Entities and ECS effectively.</strong>
 
