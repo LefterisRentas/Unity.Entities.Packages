@@ -8,7 +8,7 @@ namespace LefterisRentas.Dev.Helpers.Items
     {
         #region Item General Info
 
-        public int ItemId { get; set; }
+        public FixedString32Bytes ItemId { get; set; }
 
         public FixedString64Bytes ItemName { get; set; }
         
@@ -41,5 +41,10 @@ namespace LefterisRentas.Dev.Helpers.Items
         public bool IsDropable { get; set; }
 
         #endregion
+
+        public bool CanPickUp()
+        {
+            return IsPickable;
+        }
     }
 }
