@@ -1,3 +1,5 @@
+using MOBA.Client;
+using MOBA.Common;
 using TMPro;
 using Unity.Entities;
 using Unity.NetCode;
@@ -9,12 +11,12 @@ using UnityEngine.UI;
 // ReSharper disable once CheckNamespace
 namespace LefterisRentas.Dev.Helpers.Netcode.ConnectionManager
 {
-    public class ClientConnectionManager : MonoBehaviour
+    public partial class ClientConnectionManager : MonoBehaviour
     {
         [SerializeField] private TMP_InputField _addressField;
         [SerializeField] private TMP_InputField _portField;
         [SerializeField] private TMP_Dropdown _connectionModeDropdown;
-        [SerializeField] private TMP_Dropdown _teamDropdown;
+        [SerializeField] protected TMP_Dropdown _teamDropdown;
         [SerializeField] private Button _connectButton;
 
         private ushort Port => ushort.Parse(_portField.text);
@@ -68,13 +70,13 @@ namespace LefterisRentas.Dev.Helpers.Netcode.ConnectionManager
             {
                 case 0:
                     StartServer();
-                    StartClient();
+                    StartClientWithHooks();
                     break;
                 case 1:
                     StartServer();
                     break;
                 case 2:
-                    StartClient();
+                    StartClientWithHooks();
                     break;
                 default:
                     Debug.LogError("High Severity ERROR: Unknown Connection Mode", gameObject);
@@ -104,7 +106,7 @@ namespace LefterisRentas.Dev.Helpers.Netcode.ConnectionManager
             networkDriverQuery.GetSingletonRW<NetworkStreamDriver>().ValueRW.Listen(serverEndpoint);
         }
 
-        private void StartClient()
+        private World StartClient()
         {
             var clientWorld = ClientServerBootstrap.CreateClientWorld("Game Client World");
             
@@ -114,6 +116,7 @@ namespace LefterisRentas.Dev.Helpers.Netcode.ConnectionManager
             networkDriverQuery.GetSingletonRW<NetworkStreamDriver>().ValueRW.Connect(clientWorld.EntityManager, connectionEndpoint);
             
             World.DefaultGameObjectInjectionWorld = clientWorld;
+            return clientWorld;
         }
     }
 }
