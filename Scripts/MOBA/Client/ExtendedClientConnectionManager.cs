@@ -5,7 +5,7 @@ namespace LefterisRentas.Dev.Helpers.Netcode.ConnectionManager
 {
     public partial class ClientConnectionManager
     {
-        protected void StartClientWithHooks()
+        private void StartClientWithHooks()
         {
             var clientWorld = StartClient();
             var team = _teamDropdown.value switch
@@ -20,6 +20,11 @@ namespace LefterisRentas.Dev.Helpers.Netcode.ConnectionManager
             {
                 Value = team
             });
+        }
+
+        private void StartServerWithHooks()
+        {
+            var serverWorld = StartServer();
         }
     }
 }

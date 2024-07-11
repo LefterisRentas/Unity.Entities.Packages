@@ -69,11 +69,11 @@ namespace LefterisRentas.Dev.Helpers.Netcode.ConnectionManager
             switch (_connectionModeDropdown.value)
             {
                 case 0:
-                    StartServer();
+                    StartServerWithHooks();
                     StartClientWithHooks();
                     break;
                 case 1:
-                    StartServer();
+                    StartServerWithHooks();
                     break;
                 case 2:
                     StartClientWithHooks();
@@ -96,7 +96,7 @@ namespace LefterisRentas.Dev.Helpers.Netcode.ConnectionManager
             }
         }
 
-        private void StartServer()
+        private World StartServer()
         {
             var serverWorld = ClientServerBootstrap.CreateServerWorld("Game Server World");
 
@@ -104,6 +104,7 @@ namespace LefterisRentas.Dev.Helpers.Netcode.ConnectionManager
 
             using var networkDriverQuery = serverWorld.EntityManager.CreateEntityQuery(ComponentType.ReadWrite<NetworkStreamDriver>());
             networkDriverQuery.GetSingletonRW<NetworkStreamDriver>().ValueRW.Listen(serverEndpoint);
+            return serverWorld;
         }
 
         private World StartClient()
